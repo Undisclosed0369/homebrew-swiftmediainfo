@@ -1,9 +1,9 @@
 cask "swiftmediainfo" do
-  version "1.4"
+  version "1.5"
 
-  sha256 "f00488040829315267ac3cdfc8560566eead072ee9acbfbcd84137ea412e8c5a"
+  sha256 "725b71725deb5b1294d2e73bb67f25db68ab3a79165520e03f0fc23ae956c80b"
 
-  url "https://github.com/Undisclosed0369/SwiftMediaInfo/releases/download/v1.4/SwiftMediaInfo.1.4.dmg"
+  url "https://github.com/Undisclosed0369/SwiftMediaInfo/releases/download/v1.5/SwiftMediaInfo.1.5.dmg"
 
   name "SwiftMediaInfo"
   desc "Native macOS frontend for MediaInfo"
