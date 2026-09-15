@@ -5,8 +5,7 @@ cask "swiftmediainfo" do
   #   shasum -a 256 SwiftMediaInfo-2.0.dmg
   sha256 "76b4688e53d1192301b6296a8fed6120a78a4e2cce7f78a1090ed7b643a609b3"
 
-  url "https://github.com/Undisclosed0369/SwiftMediaInfo/releases/download/v#{version}/SwiftMediaInfo-#{version}.dmg",
-      verified: "github.com/Undisclosed0369/SwiftMediaInfo/"
+  url "https://github.com/Undisclosed0369/SwiftMediaInfo/releases/download/v#{version}/SwiftMediaInfo-#{version}.dmg"
 
   name "SwiftMediaInfo"
   desc "Native macOS front-end for the MediaInfo command-line tool"
@@ -25,7 +24,8 @@ cask "swiftmediainfo" do
   # through Homebrew never sees that prompt — the dependency arrives first.
   depends_on formula: "mediainfo"
 
-  depends_on macos: ">= :tahoe"
+  # A bare symbol means "this version or newer" — macOS 26 Tahoe and up.
+  depends_on macos: :tahoe
   depends_on arch: :arm64
 
   app "SwiftMediaInfo.app"
@@ -42,9 +42,15 @@ cask "swiftmediainfo" do
   # words rather than letting it happen quietly.
   #
   # This block disappears the day the app is signed.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/SwiftMediaInfo.app"]
+  #
+  # `postflight_steps` replaced the old `postflight` block in Homebrew 7.0. It
+  # is a restricted DSL rather than arbitrary Ruby: `system_command` is not
+  # available, and neither is `appdir` as a method. The equivalents are `run`
+  # and the `{{appdir}}` template token, which the step runner expands before
+  # the command is executed.
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args: ["-dr", "com.apple.quarantine", "{{appdir}}/SwiftMediaInfo.app"]
   end
 
   uninstall quit: "app.undisclosed0369.SwiftMediaInfo"
