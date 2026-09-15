@@ -5,9 +5,12 @@ The Homebrew cask for **[SwiftMediaInfo](https://undisclosed0369.app/swiftmediai
 ## Install
 
 ```bash
-brew tap --trust undisclosed0369/swiftmediainfo
+brew tap undisclosed0369/swiftmediainfo
+brew trust undisclosed0369/swiftmediainfo
 brew install --cask swiftmediainfo
 ```
+
+Three commands rather than one. The middle one is explained below.
 
 MediaInfo is declared as a dependency, so Homebrew installs it for you if you do not already have it.
 
@@ -38,7 +41,13 @@ The zap removes only this app's own state. It does not touch your media files, y
 
 Since Homebrew 6.0, a tap that is not one of the official ones has to be trusted before Homebrew will run any code from it. That is a good change: a cask is a Ruby file that executes on your machine, not a download link, and it is right that you say yes to that once rather than implicitly every time.
 
-`brew tap --trust undisclosed0369/swiftmediainfo` is you saying yes to this one.
+`brew trust undisclosed0369/swiftmediainfo` is you saying yes to this one. It is recorded on that machine only, so trusting it here does not trust it anywhere else, and it covers this tap alone.
+
+If you would rather trust only the one cask instead of the whole tap:
+
+```bash
+brew trust --cask undisclosed0369/swiftmediainfo/swiftmediainfo
+```
 
 ---
 
